@@ -1,25 +1,33 @@
 import React from 'react'
+import Head from 'next/head'
+import { ToastContainer } from 'react-toastify'
 import type { AppProps } from 'next/app'
+import { Provider } from 'react-redux'
 import '../assets/global.scss'
 import '../assets/index.css'
 import 'react-toastify/dist/ReactToastify.css'
-import Footer from '../layouts/Footer/Footer'
-import  { Sidebar }  from '../layouts/Sidebar'
-import { StyledEngineProvider } from '@mui/styled-engine'
-import { Provider } from 'react-redux'
 import store from '../data/store'
+import { Navbar } from '../layouts/Navbar'
+import Footer from '../layouts/Footer/Footer'
 
-function App ({Component, pageProps}: AppProps) {
+const MyApp = ({ Component, pageProps}:AppProps) => {
   return (
-    <div className="flex bg-[#E5E5E5]">
-      <Provider store={store}>
-        <StyledEngineProvider injectFirst>
-          <Sidebar />
-          <Component {...pageProps}/>
-        </StyledEngineProvider>
-      </Provider>
-    </div>
+  <Provider store={store}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BBturn</title>
+      </Head>
+      <div className='theme-1'>
+        <ToastContainer />
+        <Navbar title="Template"/>
+        <hr />
+        <div className='container-fluid'>
+          <Component {...pageProps} />
+        </div>
+        <Footer />
+      </div>
+    </Provider>
   )
 }
 
-export default App
+export default MyApp
